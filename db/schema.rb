@@ -10,9 +10,69 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_06_231839) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_23_043658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "brew_recipes", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "cupboard_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cupboard_id"], name: "index_brew_recipes_on_cupboard_id"
+    t.index ["recipe_id"], name: "index_brew_recipes_on_recipe_id"
+  end
+
+  create_table "cauldrons", force: :cascade do |t|
+    t.string "name"
+    t.integer "tier"
+    t.integer "max_ingredients"
+    t.integer "max_magimins"
+    t.bigint "upgrade_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["upgrade_id"], name: "index_cauldrons_on_upgrade_id"
+  end
+
+  create_table "cupboard_cauldrons", force: :cascade do |t|
+    t.bigint "cupboard_id", null: false
+    t.bigint "cauldron_id", null: false
+    t.boolean "active", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cauldron_id"], name: "index_cupboard_cauldrons_on_cauldron_id"
+    t.index ["cupboard_id"], name: "index_cupboard_cauldrons_on_cupboard_id"
+  end
+
+  create_table "cupboard_ingredients", force: :cascade do |t|
+    t.bigint "cupboard_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.integer "quantity", default: 0
+    t.integer "quinn_location_tab"
+    t.integer "quinn_location_slot"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cupboard_id", "ingredient_id"], name: "index_cupboard_ingredients_on_cupboard_id_and_ingredient_id", unique: true
+    t.index ["cupboard_id"], name: "index_cupboard_ingredients_on_cupboard_id"
+    t.index ["ingredient_id"], name: "index_cupboard_ingredients_on_ingredient_id"
+  end
+
+  create_table "cupboards", force: :cascade do |t|
+    t.integer "highest_license_tier", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_cupboards_on_user_id"
+  end
+
+  create_table "favorite_recipes", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "cupboard_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cupboard_id"], name: "index_favorite_recipes_on_cupboard_id"
+    t.index ["recipe_id"], name: "index_favorite_recipes_on_recipe_id"
+  end
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
@@ -35,6 +95,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_231839) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id", "ingredient_id"], name: "index_recipe_ingredients_on_recipe_id_and_ingredient_id", unique: true
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+  end
+
+  create_table "recipe_types", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.integer "license_tier"
+    t.decimal "sort_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "category"
     t.boolean "is_perfect"
@@ -52,11 +132,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_231839) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "value_per_potion"
-    t.string "name"
+    t.integer "sort_order"
+    t.bigint "recipe_type_id"
     t.index ["cost_per_potion"], name: "index_recipes_on_cost_per_potion"
     t.index ["license_tier"], name: "index_recipes_on_license_tier"
     t.index ["num_of_ingredients"], name: "index_recipes_on_num_of_ingredients"
     t.index ["profit_ratio"], name: "index_recipes_on_profit_ratio"
+    t.index ["recipe_type_id"], name: "index_recipes_on_recipe_type_id"
     t.index ["total_magimins"], name: "index_recipes_on_total_magimins"
   end
 
@@ -72,4 +154,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_231839) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "brew_recipes", "cupboards"
+  add_foreign_key "brew_recipes", "recipes"
+  add_foreign_key "cauldrons", "cauldrons", column: "upgrade_id"
+  add_foreign_key "cupboard_cauldrons", "cauldrons"
+  add_foreign_key "cupboard_cauldrons", "cupboards"
+  add_foreign_key "cupboard_ingredients", "cupboards"
+  add_foreign_key "cupboard_ingredients", "ingredients"
+  add_foreign_key "favorite_recipes", "cupboards"
+  add_foreign_key "favorite_recipes", "recipes"
+  add_foreign_key "recipe_ingredients", "ingredients"
+  add_foreign_key "recipe_ingredients", "recipes"
+  add_foreign_key "recipes", "recipe_types"
 end

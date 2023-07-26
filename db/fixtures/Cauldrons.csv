@@ -1,0 +1,39 @@
+ID,Name,Max Ingredients,Max Magimins,Tier,Upgrade ID
+38,Magical Wasteland,14,2000,3,
+37,Dragon,11,860,3,
+36,Crater,10,940,3,
+35,Arctic,12,975,3,
+34,Celestial,9,505,3,
+33,Steel,8,540,3,
+32,Crystal,10,575,3,
+31,Shadow,7,345,3,
+30,Ocean,8,320,3,
+29,Storm,9,375,3,
+28,Glass,8,200,3,
+27,Mudpack,7,225,3,
+26,Magical Wasteland,13,1150,2,38
+25,Dragon,11,750,2,37
+24,Crater,10,790,2,36
+23,Arctic,11,785,2,35
+22,Celestial,9,465,2,34
+21,Steel,8,480,2,33
+20,Crystal,9,480,2,32
+19,Shadow,7,295,2,31
+18,Ocean,8,275,2,30
+17,Storm,8,295,2,29
+16,Glass,7,170,2,28
+15,Mudpack,6,180,2,27
+14,Magical Wasteland,13,900,1,26
+13,Dragon,11,640,1,25
+12,Crater,10,675,1,24
+11,Arctic,10,640,1,23
+10,Celestial,9,405,1,22
+9,Steel,8,420,1,21
+8,Crystal,8,405,1,20
+7,Shadow,7,255,1,19
+6,Ocean,8,240,1,18
+5,Storm,7,240,1,17
+4,Glass,7,140,1,16
+3,Mudpack,6,160,1,15
+2,Clay,6,115,1,
+1,Wooden,4,75,1,
