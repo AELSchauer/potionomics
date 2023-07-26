@@ -1,0 +1,16 @@
+- recipe_groups = RecipeType.order(:sort_order).to_a.group_by(&:grouping).values
+.px-8
+  h2.mb-2.text-xl.text-center
+    | Filter by Name
+hr[class="solid"]
+.mt-4
+  - recipe_groups.each do |recipe_group|
+    .flex.w-full.p-1
+      - recipe_group.each do |recipe_type|
+        div[class="flex w-1/5 items-center mr-2"]
+          - if recipe_type.license_tier <= @cupboard.highest_license_tier
+            - name_snakecased = recipe_type.name.downcase.gsub(" ", "_")
+            = check_box_tag "filter[name][#{name_snakecased}]", 1, filter_include?(params, "name", name_snakecased), class: "mr-1"
+            = label_tag "filter[name][#{name_snakecased}]", recipe_type.name
+          - else 
+            span[class="text-zinc-500 italic"] Potion Unavailable

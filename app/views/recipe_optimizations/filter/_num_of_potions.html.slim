@@ -1,0 +1,12 @@
+h1[class="h3 modal-header"]
+  | Filter by Number of Potions
+div[class="modal-body"]
+  = form_with url: cupboard_recipe_optimizations_path(@cupboard.id), method: :get, data: { turbo_frame: "_top", turbo_action: "advance" } do
+    table
+      - @recipes.pluck(:num_of_potions).uniq.sort.each do |option|
+        tr
+          td
+            = check_box_tag "filter[num_of_potions][#{option}]", 1, filter_include?(params, "num_of_potions", option)
+          td
+            = label_tag "filter[num_of_potions][#{option}]", option
+    = submit_tag "Filter"

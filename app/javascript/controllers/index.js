@@ -3,3 +3,6 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+
+import { Modal } from "tailwindcss-stimulus-components"
+application.register('modal', Modal)
