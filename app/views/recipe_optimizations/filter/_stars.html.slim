@@ -1,9 +1,9 @@
 div[class="#{hidden ? 'hidden' : ''}"]
   .px-8
     h2.mb-2.text-xl.text-center
-      | Filter by Number of Potions
+      | Filter by Stars
   hr[class="solid"]
   div[class="mt-4" ]
-    - @recipes.select(:num_of_potions).order(:num_of_potions).distinct.pluck(:num_of_potions).each do |option|
+    - @recipes.select(:stars).order(:stars).distinct.pluck(:stars).each do |option|
       div
         = render "checkbox_and_label", params: params, option: option, hidden: hidden

@@ -3,5 +3,6 @@ class RecipeOptimizations::FilterController < ApplicationController
   include FilterRecipesConcern
 
   def show
+    get_recipes
   end
 end

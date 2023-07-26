@@ -4,6 +4,7 @@ class RecipeOptimizationsController < ApplicationController
   
   def index
     get_recipes
+    filter_recipes
     get_heatmaps
     paginate_recipes
   end

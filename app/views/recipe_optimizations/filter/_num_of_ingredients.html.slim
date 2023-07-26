@@ -1,11 +1,9 @@
-.px-8
-  h2.mb-2.text-xl.text-center
-    | Filter by Number of Ingredients
-hr[class="solid"]
-table[class="mt-4" ]
-  - (1..12).to_a.each do |option|
-    tr
-      td
-        = check_box_tag "filter[num_of_ingredients][#{option}]", 1, filter_include?(params, "num_of_ingredients", option)
-      td
-        = label_tag "filter[num_of_ingredients][#{option}]", option
+div[class="#{hidden ? 'hidden' : ''}"]
+  .px-8
+    h2.mb-2.text-xl.text-center
+      | Filter by Number of Ingredients
+  hr[class="solid"]
+  div[class="mt-4" ]
+    - @recipes.select(:num_of_ingredients).order(:num_of_ingredients).distinct.pluck(:num_of_ingredients).each do |option|
+      div
+        = render "checkbox_and_label", params: params, option: option, hidden: hidden

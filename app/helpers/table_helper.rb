@@ -37,7 +37,9 @@ module TableHelper
     min = [arr.min, 0].max
     adj = (val - min) / (max - min).to_f
 
-    if val < 0
+    if adj.nan?
+      "#fff"
+    elsif val < 0
       "#ea3423"
     elsif adj == 0.5
       sprintf("#%02X%02X%02X" % hex2)
