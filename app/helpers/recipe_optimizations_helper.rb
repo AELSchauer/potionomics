@@ -1,0 +1,2 @@
+module RecipeOptimizationsHelper
+end

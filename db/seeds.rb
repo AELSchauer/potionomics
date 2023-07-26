@@ -72,37 +72,6 @@ cupboard = Cupboard.find_by(id: 1) || Cupboard.create(id: 1, highest_license_tie
   end
 end
 
-CSV.foreach("./db/fixtures/Perfect Recipes.csv", headers: true) do |row|
-  ingredient_rarity = %w(Minor Common Greater Grand Superior Masterwork).index(row["Rarity"])
-  recipe = Recipe.create(
-    recipe_type: RecipeType.find_by(name: row["Recipe Name"]),
-    category: row["Recipe Name"].split(" ").last.downcase,
-    license_tier: row["Tier"].to_i,
-    is_perfect: true,
-    num_of_potions: row["Amount of Potions"].to_i,
-    rarity: ingredient_rarity,
-    stars: row["Stars"].to_i,
-    value: row["Value"].to_i
-  )
-  
-  row["Recipe Summary"].split("\n").map {|data| data.match(/^(?<quantity>\d{1,2})x (?<name>[\w '-]*)$/)}.each do |data|
-    ingredient = Ingredient.find_by_name(data["name"])
-    RecipeIngredient.create(
-      recipe_id: recipe.id,
-      ingredient_id: ingredient.id,
-      quantity: data["quantity"]
-    )
-  end
-
-  recipe.calculate_data
-  byebug if ingredient_rarity.nil?
-  byebug if recipe.num_of_ingredients != row["Amount of Ingredients"].to_i
-  byebug if recipe.total_magimins != row["Total Magimin"].to_i
-  byebug if recipe.cost != row["Cost"].to_i
-  byebug if recipe.profit != row["Profit"].to_i
-  puts recipe.id
-end
-
 CSV.foreach("./db/fixtures/Cauldrons.csv", headers: true) do |row|
   Cauldron.find_or_create_by(
     id: row["ID"].to_i,
@@ -140,4 +109,33 @@ CSV.foreach("./db/fixtures/Cupboard.csv", headers: true) do |row|
   puts row["Ingredient Name"]
 end
 
+CSV.foreach("./db/fixtures/Perfect Recipes.csv", headers: true) do |row|
+  ingredient_rarity = %w(Minor Common Greater Grand Superior Masterwork).index(row["Rarity"])
+  recipe = Recipe.create(
+    recipe_type: RecipeType.find_by(name: row["Recipe Name"]),
+    category: row["Recipe Name"].split(" ").last.downcase,
+    license_tier: row["Tier"].to_i,
+    is_perfect: true,
+    num_of_potions: row["Amount of Potions"].to_i,
+    rarity: ingredient_rarity,
+    stars: row["Stars"].to_i,
+    value: row["Value"].to_i
+  )
+  
+  row["Recipe Summary"].split("\n").map {|data| data.match(/^(?<quantity>\d{1,2})x (?<name>[\w '-]*)$/)}.each do |data|
+    ingredient = Ingredient.find_by_name(data["name"])
+    RecipeIngredient.create(
+      recipe_id: recipe.id,
+      ingredient_id: ingredient.id,
+      quantity: data["quantity"]
+    )
+  end
 
+  recipe.calculate_data
+  byebug if ingredient_rarity.nil?
+  byebug if recipe.num_of_ingredients != row["Amount of Ingredients"].to_i
+  byebug if recipe.total_magimins != row["Total Magimin"].to_i
+  byebug if recipe.cost != row["Cost"].to_i
+  byebug if recipe.profit != row["Profit"].to_i
+  puts recipe.id
+end

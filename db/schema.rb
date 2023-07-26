@@ -131,7 +131,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_043658) do
     t.decimal "profit_ratio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "value_per_potion"
     t.integer "sort_order"
     t.bigint "recipe_type_id"
     t.index ["cost_per_potion"], name: "index_recipes_on_cost_per_potion"
