@@ -1,3 +1,3 @@
 class CupboardsController < ApplicationController
-  include CupboardHelper
+  include CupboardConcern
 end
