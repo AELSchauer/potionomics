@@ -1,4 +1,4 @@
-class RecipeOptimizations::FilterController < ApplicationController
+class RecipeOptimizations::FiltersController < ApplicationController
   include CupboardConcern
   include FilterRecipesConcern
 

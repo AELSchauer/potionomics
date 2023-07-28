@@ -4,10 +4,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
   resources :cupboards, only: [:index, :new, :create, :destroy] do 
-    resources :recipe_optimizations, only: [:index] do
-      collection do
-        get "filter/:attr", to: "recipe_optimizations/filter#show", as: "filter"
-      end
+    resources :recipe_optimizations, only: [:index]
+    namespace :recipe_optimizations do
+      resources :filters, only: [:show]
     end
     resources :favorite_recipes, only: [:create, :destroy]
     resources :brew_recipes, only: [:create, :update, :destroy]
