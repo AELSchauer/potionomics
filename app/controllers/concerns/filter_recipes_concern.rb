@@ -6,6 +6,7 @@ module FilterRecipesConcern
   end
 
   def filter_recipes
+    filter_by_name if session.dig("filter", "advanced")
     filter_by_name if session.dig("filter", "name")
     filter_by_num_of_potions if session.dig("filter", "num_of_potions")
     filter_by_num_of_ingredients if session.dig("filter", "num_of_ingredients")
@@ -13,6 +14,12 @@ module FilterRecipesConcern
     filter_by_stars if session.dig("filter", "stars")
   end
   
+  def filter_advanced
+    session[:filter][:advanced].each do |advanced_filter|
+      @recipes = @recipes.where("#{advanced_filter[:attribute]} #{advanced_filter[:operator]} ?", advanced_filter[:value])
+    end
+  end
+
   def filter_by_name
     filter_names = session["filter"]["name"].keys.map(&:titleize)
     filter_recipe_type_ids = RecipeType.where(name: filter_names)
