@@ -1,12 +1,8 @@
 = turbo_frame_tag "modal"
   .max-h-screen.w-full.max-w-5xl.relative
     .p-6.bg-white.rounded.shadow
-      = form_with url: cupboard_recipe_optimizations_path(@cupboard.id),
-        method: :get,
-        data: { turbo_frame: "_top", turbo_action: "advance" } do
-        - (params[:filter]|| {}).reject {|k,v| k == params[:id] }.each do |key, val|
-          = render key, params: params, hidden: true
-        = render params[:id], params: params, hidden: false
+      = form_with url: cupboard_recipe_optimizations_filter_path(@cupboard.id, params[:id]), method: :put, data: { turbo_frame: "_top", turbo_action: "advance" } do
+        = render params[:id], params: params
         .flex.justify-end.items-center.flex-wrap.mt-6
           = submit_tag "Filter", class:"btn font-bold py-2 px-4 rounded", name: nil
           = button_tag "Cancel", data: { action: "click->modal#close" }, class: "btn font-bold py-2 px-4 rounded"

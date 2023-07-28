@@ -1,4 +1,4 @@
-div[class="#{hidden ? 'hidden' : ''}"]
+div
   .px-8
     h2.mb-2.text-xl.text-center
       | Filter by Rarity
@@ -6,6 +6,6 @@ div[class="#{hidden ? 'hidden' : ''}"]
   div[class="mt-4" ]
     - @recipes.select(:rarity).order(:rarity).distinct.each do |option|
       div
-        = check_box_tag "filter[#{params[:id]}][#{option.rarity}]", 1, filter_include?(params, "#{params[:id]}", option.rarity), hidden: hidden, class: "mr-1"
+        = check_box_tag "filter[#{params[:id]}][#{option.rarity}]", 1, filter_include?(params, "#{params[:id]}", option.rarity), class: "mr-1"
         = label_tag "filter[#{params[:id]}][#{option.rarity}]", option.display_rarity
 

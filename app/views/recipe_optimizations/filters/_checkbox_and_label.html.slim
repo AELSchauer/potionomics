@@ -1,2 +1,2 @@
-= check_box_tag "filter[#{params[:id]}][#{option}]", 1, filter_include?(params, "#{params[:id]}", option), hidden: hidden, class: "mr-1"
+= check_box_tag "filter[#{params[:id]}][#{option}]", 1, filter_include?(params[:id], option), class: "mr-1"
 = label_tag "filter[#{params[:id]}][#{option}]", option

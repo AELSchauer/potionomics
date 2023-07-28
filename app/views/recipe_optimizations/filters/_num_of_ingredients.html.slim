@@ -1,4 +1,4 @@
-div[class="#{hidden ? 'hidden' : ''}"]
+div
   .px-8
     h2.mb-2.text-xl.text-center
       | Filter by Number of Ingredients
@@ -6,4 +6,4 @@ div[class="#{hidden ? 'hidden' : ''}"]
   div[class="mt-4" ]
     - @recipes.select(:num_of_ingredients).order(:num_of_ingredients).distinct.pluck(:num_of_ingredients).each do |option|
       div
-        = render "checkbox_and_label", params: params, option: option, hidden: hidden
+        = render "checkbox_and_label", params: params, option: option

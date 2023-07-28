@@ -1,4 +1,4 @@
-div[class="#{hidden ? 'hidden' : ''}"]
+div
   - recipe_groups = RecipeType.order(:sort_order).to_a.group_by(&:grouping).values
   .px-8
     h2.mb-2.text-xl.text-center

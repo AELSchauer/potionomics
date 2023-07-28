@@ -17,9 +17,9 @@ module TableHelper
     direction == "asc" ? "desc" : "asc"
   end
 
-  def filter_include?(params, attr_name, val)
-    return true if params.try(:[], :filter).try(:[], attr_name).nil?
-    params.try(:[], :filter).try(:[], attr_name).try(:[], val.to_s).present?
+  def filter_include?(attr_name, val)
+    return true if session.dig("filter", attr_name).nil?
+    session.dig("filter", attr_name, val.to_s).present?
   end
 
   def heatmap_value(arr, val, inverse = false)

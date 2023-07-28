@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :cupboards, only: [:index, :new, :create, :destroy] do 
     resources :recipe_optimizations, only: [:index]
     namespace :recipe_optimizations do
-      resources :filters, only: [:show]
+      resources :filters, only: [:show, :update] do
+        delete "reset", on: :collection
+      end
     end
     resources :favorite_recipes, only: [:create, :destroy]
     resources :brew_recipes, only: [:create, :update, :destroy]
