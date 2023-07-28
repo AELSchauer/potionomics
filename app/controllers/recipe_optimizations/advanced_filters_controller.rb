@@ -12,7 +12,7 @@ class RecipeOptimizations::AdvancedFiltersController < ApplicationController
     session["filter"] << @filter.to_h
   
     respond_to do |format|
-      format.html { redirect_to filters_path, notice: "Quote was successfully created." }
+      format.html { redirect_to cupboard_recipe_optimizations_advanced_filters_path(@cupboard) }
       format.turbo_stream
     end
   end
@@ -22,7 +22,7 @@ class RecipeOptimizations::AdvancedFiltersController < ApplicationController
     session["filter"].delete_if { |obj| obj["id"].to_s == params[:id] }
 
     respond_to do |format|
-      format.html { redirect_to filters_path, notice: "Quote was successfully destroyed." }
+      format.html { redirect_to cupboard_recipe_optimizations_advanced_filters_path(@cupboard) }
       format.turbo_stream
     end
   end

@@ -1,0 +1,11 @@
+div[class="container"]
+  div[class="header"]
+    h1 Quotes
+    = form_with url: cupboard_recipe_optimizations_advanced_filters_path(@cupboard.id) do |f|
+      = f.submit class: "btn btn--secondary"
+
+    = form_with url: cupboard_recipe_optimizations_path(@cupboard.id), method: :get do
+      = submit_tag "Filter"
+      = turbo_frame_tag "filters" do
+        - @filters.each do |filter|
+          = render "filter", filter: filter
