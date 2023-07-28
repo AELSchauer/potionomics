@@ -1,0 +1,5 @@
+- attr_names = [["Total Magimins", "total_magimins"], ["Total Cost", "total_cost"], ["Profit", "profit"], ["Profit Ratio", "profit_ratio"]]
+- operator_names = [["Is equal to", "="], ["Greater than", ">"],  ["Greater than or equal to", ">="], ["Less than", "<"],  ["Less than or equal to", "<="]]
+= select_tag "filter[][attribute]", options_for_select(attr_names), class: "w-1/6 p-1 mr-1"
+= select_tag "filter[][operator]", options_for_select(operator_names), class: "w-1/6 p-1 mr-1"
+= number_field_tag "filter[][value]", min: -1000, max: 1000, class: "w-1/3"

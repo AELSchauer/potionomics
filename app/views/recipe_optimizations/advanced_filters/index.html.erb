@@ -1,0 +1,14 @@
+<main class="container">
+  <div class="header">
+    <h1>Quotes</h1>
+    <%= form_with url: cupboard_recipe_optimizations_advanced_filters_url(@cupboard.id) do |f| %>
+      <%= f.submit class: "btn btn--secondary" %>
+    <% end %>
+  </div>
+
+    <%= turbo_frame_tag "filters" do %>
+      <% @filters.each do |filter| %>
+        <%= render "filter", filter: filter %>
+      <% end %>
+  <% end %>
+</main>
