@@ -6,7 +6,7 @@ module FilterRecipesConcern
   end
 
   def filter_recipes
-    filter_by_name if session.dig("filter", "advanced")
+    filter_advanced if session.dig("filter", "advanced")
     filter_by_name if session.dig("filter", "name")
     filter_by_num_of_potions if session.dig("filter", "num_of_potions")
     filter_by_num_of_ingredients if session.dig("filter", "num_of_ingredients")
@@ -15,8 +15,8 @@ module FilterRecipesConcern
   end
   
   def filter_advanced
-    session[:filter][:advanced].each do |advanced_filter|
-      @recipes = @recipes.where("#{advanced_filter[:attribute]} #{advanced_filter[:operator]} ?", advanced_filter[:value])
+    session["filter"]["advanced"].each do |advanced_filter|
+      @recipes = @recipes.where("#{advanced_filter["attribute"]} #{advanced_filter["operator"]} ?", advanced_filter["value"])
     end
   end
 
