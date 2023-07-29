@@ -1,5 +1,5 @@
 .max-h-screen.w-full.max-w-5xl.relative
-  .p-6.bg-white.rounded.shadow
+  .p-6.bg-white
     = turbo_frame_tag "filters" do
       - @filters.each do |filter|
         = render "filter", filter: filter
