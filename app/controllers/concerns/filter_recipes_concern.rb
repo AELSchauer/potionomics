@@ -47,6 +47,6 @@ module FilterRecipesConcern
   end
   
   def paginate_recipes
-    @recipes = Kaminari.paginate_array(@recipes).page(params[:page]).per(100)
+    @recipes = Kaminari.paginate_array(@recipes).page(params[:page]).per(25)
   end
 end
