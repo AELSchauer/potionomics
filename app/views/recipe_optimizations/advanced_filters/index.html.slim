@@ -1,0 +1,8 @@
+.max-h-screen.w-full.max-w-5xl.relative
+  .p-6.bg-white.rounded.shadow
+    = turbo_frame_tag "filters" do
+      - @filters.each do |filter|
+        = render "filter", filter: filter
+    = turbo_frame_tag "new_filter" do
+      = render "form", filter: @filter
+    =link_to "Filter", cupboard_recipe_optimizations_path(@cupboard.id)

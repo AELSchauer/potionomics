@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :cupboards, only: [:index, :new, :create, :destroy] do 
     resources :recipe_optimizations, only: [:index]
     namespace :recipe_optimizations do
-      resources :advanced_filters, only: [:index, :new, :create, :show, :update, :destroy]
+      resources :advanced_filters, only: [:index, :new, :create, :show, :destroy]
       resources :filters, only: [:show, :update] do
         delete "reset", on: :collection
       end

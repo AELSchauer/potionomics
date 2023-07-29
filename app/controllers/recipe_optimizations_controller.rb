@@ -3,7 +3,7 @@ class RecipeOptimizationsController < ApplicationController
   include FilterRecipesConcern
   
   def index
-    session["filter"] = []
+    session["filter"] = {} if session["filter"].empty?
     get_recipes
     filter_recipes
     get_heatmaps

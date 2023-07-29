@@ -1,0 +1,18 @@
+= turbo_frame_tag "new_filter" do
+  = form_with url: cupboard_recipe_optimizations_advanced_filters_path(@cupboard.id) do
+    - if @error_message
+      .text-red-500
+        = @error_message
+    - attr_names = [["Total Magimins", "total_magimins"], ["Total Cost", "total_cost"], ["Profit", "profit"], ["Profit Ratio", "profit_ratio"]]
+    - operator_names = [["Is equal to", "="], ["Greater than", ">"],  ["Greater than or equal to", ">="], ["Less than", "<"],  ["Less than or equal to", "<="]]
+
+    .flex.w-full.mb-3
+      = select_tag "filter[advanced][attribute]", options_for_select(attr_names, filter["attribute"]), class: "w-1/4 mr-1 rounded py-3 px-4"
+      = select_tag "filter[advanced][operator]", options_for_select(operator_names, filter["operator"]), class: "w-1/4 mr-1 rounded py-3 px-4"
+      = number_field_tag "filter[advanced][value]", filter["value"], class: "w-1/4 mr-1 rounded py-3 px-4"
+      = button_tag do
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+
+
