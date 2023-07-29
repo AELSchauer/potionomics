@@ -11,7 +11,7 @@ div
           div[class="flex w-1/5 items-center mr-2"]
             - if recipe_type.license_tier <= @cupboard.highest_license_tier
               - name_snakecased = recipe_type.name.downcase.gsub(" ", "_")
-              = check_box_tag "filter[name][#{name_snakecased}]", 1, filter_include?(params, "name", name_snakecased), class: "mr-1"
+              = check_box_tag "filter[name][#{name_snakecased}]", 1, filter_include?("name", name_snakecased), class: "mr-1"
               = label_tag "filter[name][#{name_snakecased}]", recipe_type.name
             - else 
               span[class="text-zinc-500 italic"] Potion Unavailable

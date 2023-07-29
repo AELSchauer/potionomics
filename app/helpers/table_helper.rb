@@ -13,8 +13,9 @@ module TableHelper
       .join(",")
   end
 
-  def sort_direction(direction)
-    direction == "asc" ? "desc" : "asc"
+  def sort_direction(params, s_name)
+    return "#{s_name} asc" if params[:sort].blank? 
+    params[:sort].include?("#{s_name} asc") ? "#{s_name} desc" : "#{s_name} asc"
   end
 
   def filter_include?(attr_name, val)

@@ -7,6 +7,7 @@ class RecipeOptimizationsController < ApplicationController
     get_recipes
     filter_recipes
     get_heatmaps
+    sort_recipes
     paginate_recipes
   end
 
@@ -26,5 +27,13 @@ class RecipeOptimizationsController < ApplicationController
         arr = @recipes.pluck(attr_name)
         [attr_name, [arr.max, arr.min]]
       end.to_h
+  end
+
+  def sort_recipes
+    if params[:sort].include?("name")
+      @recipes = @recipes.includes(:recipe_type).order(params[:sort].sub("name", "recipe_types.sort_order"))
+    else
+      @recipes = @recipes.order(params[:sort])
+    end
   end
 end
