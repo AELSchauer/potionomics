@@ -7,6 +7,6 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li class="page <%= page.current? ? 'bg-sky-100 text-sky-700 current' : 'bg-transparent text-neutral-600 hover:bg-neutral-100' %> relative rounded  px-3 py-1.5 transition-all duration-300">
+<li class="page <%= page.current? ? 'bg-red-100 text-red-700 current' : 'bg-transparent text-neutral-600 hover:bg-neutral-100' %> relative rounded  px-3 py-1.5 transition-all duration-300">
   <%= link_to_unless page.current?, page, url, {remote: remote, rel: page.rel} %>
 </li>
