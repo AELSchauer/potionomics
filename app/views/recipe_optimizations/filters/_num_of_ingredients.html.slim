@@ -4,6 +4,6 @@ div
       | Filter by Number of Ingredients
   hr[class="solid"]
   div[class="mt-4" ]
-    - @recipes.select(:num_of_ingredients).order(:num_of_ingredients).distinct.pluck(:num_of_ingredients).each do |option|
+    - Recipe.select(:num_of_ingredients).order(:num_of_ingredients).distinct.pluck(:num_of_ingredients).each do |option|
       div
         = render "checkbox_and_label", params: params, option: option

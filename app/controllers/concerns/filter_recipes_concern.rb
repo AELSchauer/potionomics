@@ -2,7 +2,15 @@ module FilterRecipesConcern
   extend ActiveSupport::Concern
   
   def get_recipes
-    @recipes = Recipe.ready_to_make(cupboard: @cupboard)
+    if params[:tab].blank? || params[:tab] == "all_recipes"
+      @recipes = Recipe.all
+    elsif params[:tab] == "ready_to_brew" 
+      @recipes = Recipe.ready_to_brew(cupboard: @cupboard)
+    elsif params[:tab] == "purchasable_ingredients" 
+      @recipes = Recipe.with_purchasable_ingredients(cupboard: @cupboard)
+    elsif params[:tab] == "missing_ingredients" 
+      @recipes = Recipe.with_missing_ingredients(cupboard: @cupboard)
+    end
   end
 
   def filter_recipes

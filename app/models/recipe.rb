@@ -12,7 +12,15 @@ class Recipe < ApplicationRecord
     self.joins(recipe_ingredients: { ingredient: :cupboard_ingredients })
           .where("cupboard_ingredients.cupboard_id = #{cupboard.id}")
           .where("recipes.license_tier <= #{cupboard.highest_license_tier}")
-  end    
+  end
+
+  def self.with_purchasable_ingredients(cupboard:)
+    self.all_tier_available_recipes(cupboard: cupboard)
+        .where("(recipe_ingredients.quantity - cupboard_ingredients.quantity) > 0")
+        .where("cupboard_ingredients.quinn_location_tab IS NOT NULL")
+        .where("cupboard_ingredients.quinn_location_slot IS NOT NULL")
+        .distinct
+  end
 
   def self.with_missing_ingredients(cupboard:)
     self.all_tier_available_recipes(cupboard: cupboard)
@@ -20,7 +28,7 @@ class Recipe < ApplicationRecord
         .distinct
   end
 
-  def self.ready_to_make(cupboard:)
+  def self.ready_to_brew(cupboard:)
     recipe_ids = self.all_tier_available_recipes(cupboard: cupboard)
         .group(:id)
         .having("SUM(CASE WHEN (COALESCE(cupboard_ingredients.quantity, 0) - recipe_ingredients.quantity) < 0 THEN(COALESCE(cupboard_ingredients.quantity, 0) - recipe_ingredients.quantity) * ingredients.base_price ELSE 0 END) = 0")
@@ -41,6 +49,10 @@ class Recipe < ApplicationRecord
     self.profit = value - cost
     self.profit_ratio = (profit / cost).round(3)
     self.save!
+  end
+
+  def ready_to_brew?(cupboard:)
+    Recipe.ready_to_brew(cupboard: cupboard).include?(self)
   end
 end
 

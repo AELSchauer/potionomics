@@ -4,6 +4,6 @@ div
       | Filter by Number of Potions
   hr[class="solid"]
   div[class="mt-4" ]
-    - @recipes.select(:num_of_potions).order(:num_of_potions).distinct.pluck(:num_of_potions).each do |option|
+    - Recipe.select(:num_of_potions).order(:num_of_potions).distinct.pluck(:num_of_potions).each do |option|
       div
         = render "checkbox_and_label", params: params, option: option
