@@ -1,7 +1,7 @@
 = turbo_frame_tag "new_filter" do
   = form_with url: cupboard_recipe_optimizations_advanced_filters_path(@cupboard.id) do
     - if @error_message
-      .text-red-500
+      .text-purple-500
         = @error_message
     - attr_names = [["Total Magimins", "total_magimins"], ["Total Cost", "total_cost"], ["Profit", "profit"], ["Profit Ratio", "profit_ratio"]]
     - operator_names = [["Is equal to", "="], ["Greater than", ">"],  ["Greater than or equal to", ">="], ["Less than", "<"],  ["Less than or equal to", "<="]]

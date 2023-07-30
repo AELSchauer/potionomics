@@ -1,7 +1,7 @@
 class BrewRecipesController < ApplicationController
   def create
     BrewRecipe.create(cupboard_id: params[:cupboard_id], recipe_id: params[:id])
-    redirect_to cupboard_recipe_optimizations_path(params[:cupboard_id])
+    redirect_to cupboard_recipe_optimizations_path(params[:cupboard_id], { sort: params[:sort], tab: params[:tab] })
   end
 
   def update
@@ -9,11 +9,11 @@ class BrewRecipesController < ApplicationController
       ci = CupboardIngredient.find_by(ingredient_id: ingredient_id, cupboard_id: params[:cupboard_id])
       ci.update(quantity: ci.quantity - quantity)
     end
-    redirect_to cupboard_recipe_optimizations_path(params[:cupboard_id])
+    redirect_to cupboard_recipe_optimizations_path(params[:cupboard_id], { sort: params[:sort], tab: params[:tab] })
   end
   
   def destroy
     BrewRecipe.find_by(cupboard_id: params[:cupboard_id], recipe_id: params[:id]).destroy
-    redirect_to cupboard_recipe_optimizations_path(params[:cupboard_id])
+    redirect_to cupboard_recipe_optimizations_path(params[:cupboard_id], { sort: params[:sort], tab: params[:tab] })
   end
 end

@@ -4,6 +4,10 @@
 
 import { application } from "./application"
 
-import { Modal, Popover } from "tailwindcss-stimulus-components"
+import { Modal, Popover, Tabs } from "tailwindcss-stimulus-components"
 application.register('modal', Modal)
 application.register('popover', Popover)
+application.register('tabs', Tabs)
+
+// import TabsController from "./tabs_controller"
+// application.register("tabs", TabsController)

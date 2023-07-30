@@ -1,5 +1,6 @@
+= render "tabs"
 .flex.m-6.items-center.justify-between 
-  = button_to "Reset Filters", reset_cupboard_recipe_optimizations_filters_path(@cupboard.id), method: :delete, class: "hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+  = button_to "Reset Filters", reset_cupboard_recipe_optimizations_filters_path(@cupboard.id), method: :delete, class: "hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded"
   div
     = paginate @recipes
 .mx-6.mb-6.text-sm 
@@ -11,7 +12,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Name
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "name") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "name") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
@@ -24,7 +25,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Rarity
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "rarity") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "rarity") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
@@ -36,7 +37,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Stars
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "stars") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "stars") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
@@ -48,7 +49,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Number of Potions
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "num_of_potions") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "num_of_potions") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
@@ -60,7 +61,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Number of Ingredients
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "num_of_ingredients") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "num_of_ingredients") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
@@ -72,7 +73,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Total Magimins
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "total_magimins") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "total_magimins") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
@@ -84,7 +85,7 @@
         /   div[class="flex justify-between items-center"]
         /     span[class="header-label"] Total Cost
         /     span[class="ml-3"]
-        /       = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "cost") }) do
+        /       = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "cost") }) do
         /         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         /           <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
         /         </svg>
@@ -96,7 +97,7 @@
         /   div[class="flex justify-between items-center"]
         /     span[class="header-label"] Cost per Potion
         /     span[class="ml-3"]
-        /       = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "cost_per_potion") }) do
+        /       = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "cost_per_potion") }) do
         /         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         /           <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
         /         </svg>
@@ -108,7 +109,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Profit
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "profit") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "profit") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
@@ -120,7 +121,7 @@
           div[class="flex justify-between items-center"]
             span[class="header-label"] Profit Ratio
             span[class="ml-3"]
-              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { sort: sort_direction(params, "profit_ratio") }) do
+              = link_to cupboard_recipe_optimizations_path(@cupboard.id, { tab: params[:tab], sort: sort_direction(params, "profit_ratio") }) do
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                 </svg>
