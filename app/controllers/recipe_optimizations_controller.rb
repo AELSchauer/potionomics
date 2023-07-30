@@ -30,7 +30,7 @@ class RecipeOptimizationsController < ApplicationController
   end
 
   def sort_recipes
-    if params[:sort].include?("name")
+    if params[:sort].present? && params[:sort].include?("name")
       @recipes = @recipes.includes(:recipe_type).order(params[:sort].sub("name", "recipe_types.sort_order"))
     else
       @recipes = @recipes.order(params[:sort])
