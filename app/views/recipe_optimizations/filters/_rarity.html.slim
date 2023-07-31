@@ -6,6 +6,5 @@ div
   div[class="mt-4" ]
     - Recipe.select(:rarity).order(:rarity).distinct.each do |option|
       div
-        = check_box_tag "filter[#{params[:id]}][#{option.rarity}]", 1, filter_include?(params, "#{params[:id]}", option.rarity), class: "mr-1"
+        = check_box_tag "filter[#{params[:id]}][#{option.rarity}]", 1, filter_include?("#{params[:id]}", option.rarity), class: "mr-1"
         = label_tag "filter[#{params[:id]}][#{option.rarity}]", option.display_rarity
-

@@ -13,14 +13,4 @@ class Cupboard < ApplicationRecord
       CupboardIngredient.create(cupboard: self, ingredient: ingredient)
     end
   end
-
-  def all_tier_recipes
-    Recipe.where("license_tier <= ?", highest_license_tier)
-  end
-
-  def available_recipes
-    all_tier_recipes
-      .joins(cupboard_ingredients: { ingredient: :recipe_ingredients })
-      .where("cupboard_ingredients.cupboard_id = #{id}")
-  end
 end

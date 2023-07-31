@@ -9,7 +9,7 @@ class RecipeOptimizations::FiltersController < ApplicationController
 
   def show
     session["filter"] = {} if session["filter"].blank?
-    get_recipes
+    get_recipe_optimizations
   end
 
   def update
