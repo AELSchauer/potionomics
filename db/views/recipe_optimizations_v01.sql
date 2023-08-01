@@ -57,7 +57,7 @@ SELECT DISTINCT
 			END) * 1.0) / recipes.num_of_potions, 2) AS calculated_profit_margin_per_potion,
 	array_agg(recipe_ingredients.id) AS recipe_ingredient_ids,
 	array_agg(cupboard_ingredients.id) AS cupboard_ingredient_ids,
-	0=ANY(array_agg(COALESCE(cupboard_ingredients.quinn_location_tab,0))) AS undiscovered_cupboard_ingredients
+	0=ANY(array_agg(cupboard_ingredients.quinn_location)) AS undiscovered_cupboard_ingredients
 FROM
 	recipes
 	INNER JOIN recipe_ingredients ON recipe_ingredients.recipe_id = recipes.id

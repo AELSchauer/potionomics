@@ -1,0 +1,6 @@
+= turbo_frame_tag "new_cupboard_ingredient" do
+  = simple_form_for CupboardIngredient.new, url: cupboard_cupboard_ingredients_path(@cupboard), data: { turbo_frame: "_top" } do
+    = select_tag :ingredient_id, options_from_collection_for_select(@ingredients, "id", "name", "1")
+    = number_field_tag :quantity, min: 0
+    = check_box_tag :quinn_stock
+    = button_to "Submit"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_31_031813) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_01_061637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,10 +48,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_031813) do
     t.bigint "cupboard_id", null: false
     t.bigint "ingredient_id", null: false
     t.integer "quantity", default: 0
-    t.integer "quinn_location_tab"
-    t.integer "quinn_location_slot"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quinn_location", default: 0
     t.index ["cupboard_id", "ingredient_id"], name: "index_cupboard_ingredients_on_cupboard_id_and_ingredient_id", unique: true
     t.index ["cupboard_id"], name: "index_cupboard_ingredients_on_cupboard_id"
     t.index ["ingredient_id"], name: "index_cupboard_ingredients_on_ingredient_id"
@@ -218,7 +217,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_031813) do
           END))::numeric * 1.0)) / (recipes.num_of_potions)::numeric), 2) AS calculated_profit_margin_per_potion,
       array_agg(recipe_ingredients.id) AS recipe_ingredient_ids,
       array_agg(cupboard_ingredients.id) AS cupboard_ingredient_ids,
-      (0 = ANY (array_agg(COALESCE(cupboard_ingredients.quinn_location_tab, 0)))) AS undiscovered_cupboard_ingredients
+      (0 = ANY (array_agg(cupboard_ingredients.quinn_location))) AS undiscovered_cupboard_ingredients
      FROM (((((recipes
        JOIN recipe_ingredients ON ((recipe_ingredients.recipe_id = recipes.id)))
        JOIN ingredients ON ((ingredients.id = recipe_ingredients.ingredient_id)))

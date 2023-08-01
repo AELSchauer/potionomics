@@ -1,0 +1,110 @@
+div[class="p-6"]
+  div[class="mb-6"]
+    = turbo_frame_tag "new_cupboard_ingredient" do
+      = link_to "Add New", new_cupboard_cupboard_ingredient_path(@cupboard.id), class: "hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded"
+  - if params[:sort] == "quinn"
+    div
+      h1 Stocked Ingredients
+      div[class="flex"]
+        div[class="flex flex-wrap w-1/12"]
+          - tabs = (@quinn_ingredients.count / 10.0).ceil
+          - tabs.times do |idx|
+            div[class="w-full h-24"] Tab #{idx + 1}
+        div[class="flex flex-wrap w-11/12"]
+          - @quinn_ingredients.each do |cupboard_ingredient|
+            div[class="flex flex-nowrap w-1/5 h-12 justify-between"]
+              span[class="p-2"] 
+                = cupboard_ingredient.ingredient.name 
+              span[class="p-2"] 
+                = turbo_frame_tag cupboard_ingredient do
+                  = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+
+  - else
+    table
+      - @cupboard_ingredients.each do |cupboard_ingredient| 
+        tr
+          td[class="p-2"]
+            = cupboard_ingredient.ingredient.name
+          td[class="p-2 text-right"]
+            = turbo_frame_tag cupboard_ingredient do
+              = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+
+
+    / div
+    /   h1 Stocked Ingredients
+    /   div[class="flex"]
+    /     div[class="flex flex-wrap w-1/12"]
+    /       - tabs = (@quinn_ingredients.count / 10.0).ceil
+    /       - tabs.times do |idx|
+    /         div[class="w-full h-24"] Tab #{idx + 1}
+    /     div[class="flex flex-wrap w-11/12"]
+    /       - @quinn_ingredients.each do |cupboard_ingredient|
+    /         div[class="flex flex-nowrap w-1/5 h-12 justify-between"]
+    /           span[class="p-2"] 
+    /             = cupboard_ingredient.ingredient.name 
+    /           span[class="p-2"] 
+    /             = turbo_frame_tag cupboard_ingredient do
+    /               = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+
+/ div[class="p-6"]
+/   div[class="mb-6"]
+/     = turbo_frame_tag "new_cupboard_ingredient" do
+/       = link_to "Add New", new_cupboard_cupboard_ingredient_path(@cupboard.id), class: "hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded"
+/   - if params[:sort] == "quinn"
+/     div
+/       h1 Stocked Ingredients
+/       table
+/         - @quinn_ingredients.in_groups_of(10, false).each_with_index do |group, tab|
+/           tr 
+/             th[rowspan="2" class="p-2"]
+/               = "Tab #{tab + 1}"
+/             - (0..4).to_a.each do |slot|
+/               - cupboard_ingredient = group[slot]
+/               - if cupboard_ingredient.nil?
+/                 td[class="p-2"] &nbsp;
+/                 td[class="p-2"] 
+/               - else 
+/                 td[class="p-2"] 
+/                   = cupboard_ingredient.ingredient.name 
+/                 td[class="p-2"] 
+/                   = turbo_frame_tag cupboard_ingredient do
+/                     = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+/           tr
+/             - (5..9).to_a.each do |slot|
+/               - cupboard_ingredient = group[slot]
+/               - if cupboard_ingredient.nil?
+/                 td[class="p-2"] &nbsp;
+/                 td[class="p-2"] 
+/               - else 
+/                 td[class="p-2"] 
+/                   = cupboard_ingredient.ingredient.name 
+/                 td[class="p-2"] 
+/                   = turbo_frame_tag cupboard_ingredient do
+/                     = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+
+/     div
+/       h1 Unstocked Ingredients
+/       div[class="flex flex-wrap"]
+/         - @cupboard_ingredients.in_groups_of(4, false).each_with_index do |group, idx|
+/           div[class="flex w-full border-y border-black w-1/5"]
+/             - (0..3).to_a.each do |slot|
+/               - cupboard_ingredient = group[slot]
+/               - if cupboard_ingredient.nil?
+/                 div[class="w-2/12 p-2 border-s border-black"] &nbsp;
+/                 div[class="w-1/12 p-2 border-s border-black"] 
+/               - else 
+/                 div[class="w-2/12 p-2 border-s border-black"] 
+/                   = cupboard_ingredient.ingredient.name 
+/                 div[class="w-1/12 p-2 border-s border-black"] 
+/                   = turbo_frame_tag cupboard_ingredient do
+/                     = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+
+/   - else
+/     table
+/       - @cupboard_ingredients.each do |cupboard_ingredient| 
+/         tr
+/           td[class="p-2"]
+/             = cupboard_ingredient.ingredient.name
+/           td[class="p-2 text-right"]
+/             = turbo_frame_tag cupboard_ingredient do
+/               = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
