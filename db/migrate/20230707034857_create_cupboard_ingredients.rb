@@ -4,8 +4,8 @@ class CreateCupboardIngredients < ActiveRecord::Migration[6.1]
       t.references :cupboard, null: false, foreign_key: true
       t.references :ingredient, null: false, foreign_key: true
       t.integer :quantity, default: 0
-      t.integer :quinn_location_tab
-      t.integer :quinn_location_slot
+      t.integer :quinn_location, default: -1
+      t.boolean :discovered, default: false
 
       t.timestamps
     end

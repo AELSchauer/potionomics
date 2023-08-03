@@ -1,0 +1,18 @@
+abominable_tarantula:
+  id: 1
+  name: "Abominable Tarantula"
+  rarity: 2
+  category: Bug
+  location: Arctic
+  base_price: 105
+  a_magimins: 0
+  b_magimins: 0
+  c_magimins: 0
+  d_magimins: 0
+  e_magimins: 66
+  total_magimins: 66
+  taste_val: 0
+  touch_val: 0
+  smell_val: 0
+  sight_val: 0
+  sound_val: 0

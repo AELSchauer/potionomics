@@ -96,6 +96,7 @@ CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Arctic", tier: 3), act
 CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Dragon", tier: 3), active: false, cupboard: cupboard)
 CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Magical Wasteland", tier: 3), active: true, cupboard: Cupboard.first)
 
+quinn_location = 0
 CSV.foreach("./db/fixtures/Cupboard.csv", headers: true) do |row|
   ci = CupboardIngredient.find_by(
     cupboard: cupboard,
@@ -103,9 +104,9 @@ CSV.foreach("./db/fixtures/Cupboard.csv", headers: true) do |row|
   )
   ci.present? && ci.update(
     quantity: row["Quantity"].to_i,
-    quinn_location_tab: row["Tab"].to_i,
-    quinn_location_slot: row["Slot"].to_i
+    quinn_location: quinn_location
   )
+  quinn_location += 1
   puts row["Ingredient Name"]
 end
 
