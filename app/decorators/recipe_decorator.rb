@@ -1,4 +1,4 @@
-class RecipeOptimizationDecorator < ApplicationDecorator
+class RecipeDecorator < ApplicationDecorator
   decorates :recipe
   include Draper::LazyHelpers
 
