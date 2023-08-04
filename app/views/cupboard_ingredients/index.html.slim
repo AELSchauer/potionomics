@@ -1,0 +1,44 @@
+= render "tabs"
+
+div[class="p-6"]
+  - if params[:tab] == "quinn"
+    div
+      h1 Stocked Ingredients
+      div[class="flex flex-wrap w-full"]
+        - @cupboard_ingredients.where.not(quinn_location: nil).order(:quinn_location).each_with_index do |cupboard_ingredient, idx|
+          - if idx % 10 == 0
+            div[class="flex w-full h-12 mt-2 p-2"] 
+              p[class="w-full text-center"] Tab #{(idx / 10) + 1}
+          div[class="flex flex-nowrap w-1/5 h-12 justify-between p-2"]
+              span
+                = cupboard_ingredient.ingredient.name 
+              = turbo_frame_tag cupboard_ingredient do
+                span
+                  = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+    div
+      h1 Unstocked Ingredients
+      div[class="flex flex-wrap w-full"]
+        - @cupboard_ingredients.where(quinn_location: nil).order(:quinn_location).each do |cupboard_ingredient|
+          div[class="flex flex-nowrap w-1/5 h-12 justify-between p-2"]
+            span
+              = cupboard_ingredient.ingredient.name 
+            = turbo_frame_tag cupboard_ingredient do
+              span
+                = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+
+  - else
+    table
+      tr
+        th[class="p-2 h-12"] Ingredient Name 
+        th[class="p-2 h-12"] Quantity 
+        th[class="p-2 h-12"] Quinn Tab-Slot
+      - @cupboard_ingredients.order("ingredients.name").each do |cupboard_ingredient| 
+        tr
+          td[class="px-3 py-1 h-12"]
+            = cupboard_ingredient.ingredient.name
+          td[class="pr-3 py-1 h-12 w-32 text-right"]
+            = turbo_frame_tag cupboard_ingredient do
+              = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+          td[class="px-3 py-1 h-12"]
+            - if cupboard_ingredient.quinn_location
+              | #{cupboard_ingredient.display_quinn_tab}-#{cupboard_ingredient.display_quinn_slot}
