@@ -14,7 +14,7 @@ div[class="p-6"]
                 = cupboard_ingredient.ingredient.name 
               = turbo_frame_tag cupboard_ingredient do
                 span
-                  = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+                  = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light", data: { turbo_frame: cupboard_ingredient }
     div
       h1 Unstocked Ingredients
       div[class="flex flex-wrap w-full"]
@@ -38,7 +38,7 @@ div[class="p-6"]
             = cupboard_ingredient.ingredient.name
           td[class="pr-3 py-1 h-12 w-32 text-right"]
             = turbo_frame_tag cupboard_ingredient do
-              = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light"
+              = link_to "#{cupboard_ingredient.quantity}", edit_cupboard_cupboard_ingredient_path(@cupboard, cupboard_ingredient), class: "btn btn--light", data: { turbo_frame: cupboard_ingredient }
           td[class="px-3 py-1 h-12"]
             - if cupboard_ingredient.quinn_location
               | #{cupboard_ingredient.display_quinn_tab}-#{cupboard_ingredient.display_quinn_slot}
