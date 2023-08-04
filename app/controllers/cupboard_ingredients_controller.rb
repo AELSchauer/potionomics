@@ -17,7 +17,7 @@ class CupboardIngredientsController < ApplicationController
     if params[:quinn_stock]
       @cupboard_ingredient.assign_attributes(quinn_location: @cupboard.cupboard_ingredients.pluck(:quinn_location).compact.max + 1)
     end
-    
+
     if @cupboard_ingredient.save
       redirect_to cupboard_cupboard_ingredients_path(@cupboard, params[:tab] ? { tab: params[:tab] } : {})
     else

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root "home#index"
   resources :cupboards, only: [:index, :new, :create, :destroy] do 
     resources :brew_recipes, only: [:create, :update, :destroy]
-    resources :cupboard_ingredients
+    resources :cupboard_ingredients, only: [:index, :new, :create, :edit, :update]
     resources :favorite_recipes, only: [:create, :destroy]
     resources :recipe_optimizations, only: [:index]
     namespace :recipe_optimizations do
@@ -15,5 +15,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
   devise_for :users
 end
