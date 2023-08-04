@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
   has_many :recipe_ingredients
   has_many :ingredients, through: :recipe_ingredients
 
-  delegate :display_rarity_color, to: :decorator
+  delegate :display_rarity, to: :decorator
 
   def decorator
     RecipeOptimizationDecorator.new(self)
