@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :recipe_optimizations, only: [:index]
     namespace :recipe_optimizations do
       resources :advanced_filters, only: %i[index new create show destroy]
+      resources :ingredient_filters, only: %i[index new create show destroy]
       resources :filters, only: %i[show update] do
         delete 'reset', on: :collection
       end

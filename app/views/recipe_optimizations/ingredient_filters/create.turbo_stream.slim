@@ -1,0 +1,4 @@
+= turbo_stream.append "filters" do
+  = render partial: "filter", locals: { filter: @filter }
+= turbo_stream.update "new_filter" do
+  = render "form", filter: {}

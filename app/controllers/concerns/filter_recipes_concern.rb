@@ -20,6 +20,7 @@ module FilterRecipesConcern
     filter_by_num_of_ingredients if session.dig('filter', 'num_of_ingredients')
     filter_by_rarity if session.dig('filter', 'rarity')
     filter_by_stars if session.dig('filter', 'stars')
+    filter_ingredient if session.dig('filter', 'ingredient')
   end
 
   def filter_advanced
@@ -58,5 +59,19 @@ module FilterRecipesConcern
 
   def paginate_recipes
     @recipe_optimizations = Kaminari.paginate_array(@recipe_optimizations).page(params[:page]).per(25)
+  end
+
+  def filter_ingredient
+    @recipe_optimizations = @recipe_optimizations.joins(
+      'INNER JOIN recipe_optimization_ingredients ' \
+      'ON recipe_optimizations.cupboard_id = recipe_optimization_ingredients.cupboard_id ' \
+      'AND recipe_optimizations.recipe_id = recipe_optimization_ingredients.recipe_id'
+    )
+
+    session['filter']['ingredient'].each do |ingredient_filter|
+      @recipe_optimizations = @recipe_optimizations
+                              .where('ingredient_id = ?', ingredient_filter['attribute'])
+                              .where("needed_quantity #{ingredient_filter['operator']} ?", ingredient_filter['value'])
+    end
   end
 end
