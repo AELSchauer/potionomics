@@ -30,9 +30,6 @@ Ingredient.find_or_create_by!(
   )
 end
 
-user = User.create(email: "aelschauer@gmail.com", password: "password")
-cupboard = Cupboard.create(highest_license_tier: 1, user: user)
-
 [
   [
     { name: "Health Potion", license_tier: 1 }, 
@@ -72,44 +69,6 @@ cupboard = Cupboard.create(highest_license_tier: 1, user: user)
   end
 end
 
-CSV.foreach("./db/fixtures/Cauldrons.csv", headers: true) do |row|
-  Cauldron.find_or_create_by(
-    id: row["ID"].to_i,
-    name: row["Name"],
-    tier: row["Tier"].to_i,
-    max_ingredients: row["Max Ingredients"].to_i,
-    max_magimins: row["Max Magimins"].to_i,
-    upgrade: row["Upgrade ID"].nil? ? nil : Cauldron.find(row["Upgrade ID"])
-  )
-end
-
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Wooden", tier: 1), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Clay", tier: 1), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Glass", tier: 3), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Storm", tier: 3), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Ocean", tier: 1), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Crystal", tier: 3), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Celestial", tier: 3), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Arctic", tier: 3), active: true, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Arctic", tier: 3), active: true, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Arctic", tier: 3), active: true, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Dragon", tier: 3), active: false, cupboard: cupboard)
-CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Magical Wasteland", tier: 3), active: true, cupboard: Cupboard.first)
-
-quinn_location = 0
-CSV.foreach("./db/fixtures/Cupboard.csv", headers: true) do |row|
-  ci = CupboardIngredient.find_by(
-    cupboard: cupboard,
-    ingredient: Ingredient.find_by_name(row["Ingredient Name"])
-  )
-  ci.present? && ci.update(
-    quantity: row["Quantity"].to_i,
-    quinn_location: quinn_location
-  )
-  quinn_location += 1
-  puts row["Ingredient Name"]
-end
-
 CSV.foreach("./db/fixtures/Perfect Recipes.csv", headers: true) do |row|
   ingredient_rarity = %w(Minor Common Greater Grand Superior Masterwork).index(row["Rarity"])
   recipe = Recipe.create(
@@ -139,4 +98,46 @@ CSV.foreach("./db/fixtures/Perfect Recipes.csv", headers: true) do |row|
   byebug if recipe.cost != row["Cost"].to_i
   byebug if recipe.profit != row["Profit"].to_i
   puts recipe.id
+end
+
+
+CSV.foreach("./db/fixtures/Cauldrons.csv", headers: true) do |row|
+  Cauldron.find_or_create_by(
+    id: row["ID"].to_i,
+    name: row["Name"],
+    tier: row["Tier"].to_i,
+    max_ingredients: row["Max Ingredients"].to_i,
+    max_magimins: row["Max Magimins"].to_i,
+    upgrade: row["Upgrade ID"].nil? ? nil : Cauldron.find(row["Upgrade ID"])
+  )
+end
+
+user = User.create(email: "aelschauer@gmail.com", password: "password")
+cupboard = Cupboard.create(highest_license_tier: 1, user: user)
+
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Wooden", tier: 1), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Clay", tier: 1), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Glass", tier: 3), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Storm", tier: 3), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Ocean", tier: 1), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Crystal", tier: 3), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Celestial", tier: 3), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Arctic", tier: 3), active: true, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Arctic", tier: 3), active: true, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Arctic", tier: 3), active: true, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Dragon", tier: 3), active: false, cupboard: cupboard)
+CupboardCauldron.create(cauldron: Cauldron.find_by(name: "Magical Wasteland", tier: 3), active: true, cupboard: Cupboard.first)
+
+quinn_location = 0
+CSV.foreach("./db/fixtures/Cupboard.csv", headers: true) do |row|
+  ci = CupboardIngredient.find_by(
+    cupboard: cupboard,
+    ingredient: Ingredient.find_by_name(row["Ingredient Name"])
+  )
+  ci.present? && ci.update(
+    quantity: row["Quantity"].to_i,
+    quinn_location: quinn_location
+  )
+  quinn_location += 1
+  puts row["Ingredient Name"]
 end
