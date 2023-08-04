@@ -8,9 +8,15 @@ class Cupboard < ApplicationRecord
   has_many :brew_recipes
   belongs_to :user
 
+  delegate :display_name, to: :decorator
+
   after_create do
     Ingredient.all.each do |ingredient|
       CupboardIngredient.create(cupboard: self, ingredient:)
     end
+  end
+
+  def decorator
+    CupboardDecorator.new(self)
   end
 end
