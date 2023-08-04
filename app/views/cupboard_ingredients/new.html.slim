@@ -1,0 +1,9 @@
+= turbo_frame_tag "new_cupboard_ingredient" do
+  div[class="mb-6"]
+    = form_with url: cupboard_cupboard_ingredients_path(cupboard: @cupboard), method: :post, class: "flex items-center", data: { turbo_frame: "_top" } do
+      = hidden_field_tag :tab, params[:tab]
+      = select_tag :ingredient_id, options_from_collection_for_select(@ingredients, "id", "name", @cupboard_ingredient.ingredient.id), class: "appearance-none bg-transparent text-gray-700 mr-3 py-1 px-2"
+      = number_field_tag :quantity, @cupboard_ingredient.quantity, required: true, min: 0, class: "appearance-none bg-transparent text-gray-700 mr-3 py-1 px-2"
+      = label_tag :quinn_stock, "Add Ingredient to Quinn's Stock?", class: "mr-2"
+      = check_box_tag :quinn_stock, "1", false, class: "appearance-none bg-transparent text-gray-700 mr-6 py-1 px-2"
+      = submit_tag "Submit", class: "h-10 hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded"
