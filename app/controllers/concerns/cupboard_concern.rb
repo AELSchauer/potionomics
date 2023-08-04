@@ -6,6 +6,6 @@ module CupboardConcern
   end
 
   def current_cupboard
-    @cupboard ||= Cupboard.find(params["cupboard_id"])
+    @current_cupboard ||= Cupboard.find(params['cupboard_id'])
   end
 end

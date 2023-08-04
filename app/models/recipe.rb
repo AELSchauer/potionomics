@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
   has_many :recipe_ingredients
   has_many :ingredients, through: :recipe_ingredients
 
-  delegate  :display_rarity_color, to: :decorator
+  delegate :display_rarity_color, to: :decorator
 
   def decorator
     RecipeOptimizationDecorator.new(self)
@@ -16,6 +16,6 @@ class Recipe < ApplicationRecord
     self.cost_per_potion = (cost / num_of_potions)
     self.profit = value - cost
     self.profit_ratio = (profit / cost).round(3)
-    self.save!
+    save!
   end
 end

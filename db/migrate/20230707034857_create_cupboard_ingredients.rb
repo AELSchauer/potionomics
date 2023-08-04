@@ -10,6 +10,6 @@ class CreateCupboardIngredients < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :cupboard_ingredients, [:cupboard_id, :ingredient_id], unique: true
+    add_index :cupboard_ingredients, %i[cupboard_id ingredient_id], unique: true
   end
 end

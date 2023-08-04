@@ -1,5 +1,5 @@
 = turbo_frame_tag @cupboard_ingredient do
-  = form_with url: cupboard_cupboard_ingredient_path(cupboard: @cupboard, cupboard_ingredient: @cupboard_ingredient), method: :put, class: "flex justify-end" do
+  = form_with url: cupboard_cupboard_ingredient_path(cupboard: @current_cupboard, cupboard_ingredient: @cupboard_ingredient), method: :put, class: "flex justify-end" do
     = number_field_tag :quantity, @cupboard_ingredient.quantity, class: "w-16 h-8 appearance-none bg-transparent border-none", label: false, min: 0, autofocus: true
     = button_tag class: "ml-4 text-purple-700" do
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

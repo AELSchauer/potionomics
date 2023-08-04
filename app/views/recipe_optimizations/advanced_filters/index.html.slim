@@ -5,4 +5,4 @@
         = render "filter", filter: filter
     = turbo_frame_tag "new_filter" do
       = render "form", filter: @filter
-    =link_to "Filter", cupboard_recipe_optimizations_path(@cupboard.id)
+    =link_to "Filter", cupboard_recipe_optimizations_path(@current_cupboard.id)

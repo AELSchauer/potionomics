@@ -1,6 +1,6 @@
 = turbo_frame_tag "new_cupboard_ingredient" do
   div[class="mb-6"]
-    = form_with url: cupboard_cupboard_ingredients_path(cupboard: @cupboard), method: :post, class: "flex items-center", data: { turbo_frame: "_top" } do
+    = form_with url: cupboard_cupboard_ingredients_path(cupboard: @current_cupboard), method: :post, class: "flex items-center", data: { turbo_frame: "_top" } do
       = hidden_field_tag :tab, params[:tab]
       = select_tag :ingredient_id, options_from_collection_for_select(@ingredients, "id", "name", @cupboard_ingredient.ingredient.id), class: "appearance-none bg-transparent text-gray-700 mr-3 py-1 px-2"
       = number_field_tag :quantity, @cupboard_ingredient.quantity, required: true, min: 0, class: "appearance-none bg-transparent text-gray-700 mr-3 py-1 px-2"

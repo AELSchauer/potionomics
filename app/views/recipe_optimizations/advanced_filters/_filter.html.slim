@@ -9,7 +9,7 @@
       = operator_names[filter["operator"]]
     span[class="mr-3 w-1/6"]
       = filter["value"]
-    = button_to cupboard_recipe_optimizations_advanced_filter_path(@cupboard.id, filter["id"]),
+    = button_to cupboard_recipe_optimizations_advanced_filter_path(@current_cupboard.id, filter["id"]),
         method: :delete,
         class: "btn btn--light" do
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-5">

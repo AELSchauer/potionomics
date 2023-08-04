@@ -10,7 +10,7 @@ class Cupboard < ApplicationRecord
 
   after_create do
     Ingredient.all.each do |ingredient|
-      CupboardIngredient.create(cupboard: self, ingredient: ingredient)
+      CupboardIngredient.create(cupboard: self, ingredient:)
     end
   end
 end

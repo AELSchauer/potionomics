@@ -1,5 +1,5 @@
 = turbo_frame_tag "new_filter" do
-  = form_with url: cupboard_recipe_optimizations_advanced_filters_path(@cupboard.id) do
+  = form_with url: cupboard_recipe_optimizations_advanced_filters_path(@current_cupboard.id) do
     - if @error_message
       .text-purple-500
         = @error_message

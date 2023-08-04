@@ -1,12 +1,12 @@
 class RecipeOptimization < ApplicationRecord
   self.primary_key = :cupboard_id, :recipe_id
 
-  belongs_to :cupboard, foreign_key: "cupboard_id", primary_key: "id", class_name: "Cupboard"
-  belongs_to :recipe, foreign_key: "recipe_id", primary_key: "id", class_name: "Recipe"
-  belongs_to :recipe_type, foreign_key: "recipe_type_id", primary_key: "id", class_name: "RecipeType"
+  belongs_to :cupboard, foreign_key: 'cupboard_id', primary_key: 'id', class_name: 'Cupboard'
+  belongs_to :recipe, foreign_key: 'recipe_id', primary_key: 'id', class_name: 'Recipe'
+  belongs_to :recipe_type, foreign_key: 'recipe_type_id', primary_key: 'id', class_name: 'RecipeType'
 
   scope :ready_to_brew, -> { where(calculated_cost: 0) }
-  scope :purchasable, -> { where(undiscovered_cupboard_ingredients: false).where("calculated_cost > 0") }
+  scope :purchasable, -> { where(undiscovered_cupboard_ingredients: false).where('calculated_cost > 0') }
   scope :undiscovered, -> { where(undiscovered_cupboard_ingredients: true) }
 
   delegate  :display_cost, :display_cost_per_potion, :display_ingredients, :display_profit,
@@ -28,10 +28,10 @@ class RecipeOptimization < ApplicationRecord
   end
 
   def recipe_optimization_ingredients
-    RecipeOptimizationIngredient.where(cupboard_id: cupboard_id, recipe_id: recipe_id)
+    RecipeOptimizationIngredient.where(cupboard_id:, recipe_id:)
   end
 
   def ready_to_brew?
-    calculated_cost == 0
+    calculated_cost.zero?
   end
 end

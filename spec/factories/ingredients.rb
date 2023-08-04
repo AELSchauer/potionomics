@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :ingredient do
     name { "#{Faker::Color.color_name.capitalize} #{Faker::Food.fruits.singularize}" }
     rarity { 1 }
-    category { "Fruit" }
-    location { "Enchanted Forest" }
+    category { 'Fruit' }
+    location { 'Enchanted Forest' }
     base_price { 20 }
     a_magimins { 3 }
     b_magimins { 3 }
